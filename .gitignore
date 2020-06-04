@@ -1,0 +1,9 @@
+.DS_Store
+*env/
+.vscode/
+__pycache__/
+.env
+.coverage
+htmlcov/*
+*.egg-info/
+*/data.db
