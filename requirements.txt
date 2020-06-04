@@ -1,0 +1,5 @@
+Flask
+flask-restful
+flask-cors
+Flask-SQLAlchemy
+python-dotenv
