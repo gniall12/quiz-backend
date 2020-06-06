@@ -17,7 +17,6 @@ def create_app():
     app.config.from_object("quiz_app.config.AppConfig")
     
     CORS(app)
-    cors = CORS(app, resources={r"/*": {"origins": frontend_url}})
 
     api = Api(app)
 
