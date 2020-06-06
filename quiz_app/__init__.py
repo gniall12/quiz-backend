@@ -14,10 +14,9 @@ from .resources.server_sent import ChangeStream, Change
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object("AppConfig")
-
+    app.config.from_object("quiz_app.config.AppConfig")
+    
     CORS(app)
-    cors = CORS(app, resources={r"/*": {"origins": frontend_url}})
 
     api = Api(app)
 
