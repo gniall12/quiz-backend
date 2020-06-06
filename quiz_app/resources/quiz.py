@@ -32,11 +32,10 @@ class Quiz(Resource):
     def put(self, id):
         quiz_obj = QuizModel.find_by_id(id)
         data = Quiz.put_parser.parse_args()
-
         if quiz_obj:
-            if data["current_round"]:
+            if data["current_round"] is not None:
                 quiz_obj.current_round = data["current_round"]
-            if data["number_rounds"]:
+            if data["number_rounds"] is not None:
                 quiz_obj.number_rounds = data["number_rounds"]
             quiz_obj.save_to_db()
         else:
