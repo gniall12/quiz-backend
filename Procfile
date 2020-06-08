@@ -1,1 +1,1 @@
-web: gunicorn "quiz_app:create_app()"
+web: gunicorn --workers=3 "quiz_app:create_app()"
