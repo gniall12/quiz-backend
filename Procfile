@@ -1,1 +1,1 @@
-web: gunicorn "quiz_app:create_app()"
+web: gunicorn --worker-class=gevent "quiz_app:create_app()"
