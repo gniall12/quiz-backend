@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
+from flask_sse import sse
 
 from .db import db
 
@@ -9,13 +10,14 @@ from .resources.quiz import Quiz
 from .resources.question import Questions
 from .resources.participant import Participant, Participants
 from .resources.answer import Answers
-from .resources.server_sent import ChangeStream, Change
+from .resources.server_sent import Change
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object("quiz_app.config.AppConfig")
-    
+    app.register_blueprint(sse, url_prefix="/stream")
+
     CORS(app)
 
     api = Api(app)
@@ -35,7 +37,6 @@ def create_app():
         "/answers/<string:quiz_id>/<int:round_num>",
         "/answers/<string:quiz_id>/<int:round_num>/<int:participant_id>",
     )
-    api.add_resource(ChangeStream, "/change-stream/<string:quiz_id>")
     api.add_resource(Change, "/change/<string:quiz_id>")
 
     @app.before_first_request

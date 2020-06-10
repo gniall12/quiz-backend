@@ -5,3 +5,5 @@ Flask-SQLAlchemy
 python-dotenv
 gunicorn
 psycopg2
+gevent
+flask-sse
