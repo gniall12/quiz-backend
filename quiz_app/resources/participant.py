@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 
 from ..models.participant import ParticipantModel
+from ..models.quiz import QuizModel
 
 
 class Participant(Resource):
@@ -10,6 +11,13 @@ class Participant(Resource):
     def post(self, quiz_id):
         data = Participant.parser.parse_args()
         participant_obj = ParticipantModel(quiz_id, data["name"])
+
+        quiz_obj = QuizModel.find_by_id(quiz_id)
+
+        if not quiz_obj:
+            return {"message": "Quiz not found"}, 404
+        if quiz_obj.current_round is not None:
+            return {"message": "Quiz has already started"}, 403
 
         try:
             participant_obj.save_to_db()
