@@ -1,3 +1,6 @@
+import datetime
+from sqlalchemy import DateTime
+
 from ..db import db
 
 
@@ -5,6 +8,7 @@ class QuizModel(db.Model):
     __tablename__ = "quizzes"
 
     id = db.Column(db.Integer, primary_key=True)
+    date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
     name = db.Column(db.String(80))
     number_rounds = db.Column(db.Integer)
     current_round = db.Column(db.Integer)
@@ -17,6 +21,7 @@ class QuizModel(db.Model):
     def json(self):
         return {
             "id": self.id,
+            "date_created": str(self.date_created),
             "name": self.name,
             "number_rounds": self.number_rounds,
             "current_round": self.current_round,
