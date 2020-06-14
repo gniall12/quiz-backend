@@ -6,13 +6,14 @@ from ..models.quiz import QuizModel
 
 class Participant(Resource):
     parser = reqparse.RequestParser()
+    parser.add_argument("quiz_id", type=str, required=True)
     parser.add_argument("name", type=str, required=True)
 
-    def post(self, quiz_id):
+    def post(self):
         data = Participant.parser.parse_args()
-        participant_obj = ParticipantModel(quiz_id, data["name"])
+        participant_obj = ParticipantModel(data["quiz_id"], data["name"])
 
-        quiz_obj = QuizModel.find_by_id(quiz_id)
+        quiz_obj = QuizModel.find_by_id(data["quiz_id"])
 
         if not quiz_obj:
             return {"message": "Quiz not found"}, 404
@@ -25,6 +26,18 @@ class Participant(Resource):
             return {"message": "An error occurred inserting the participant."}
 
         return participant_obj.json()
+
+    def delete(self, id):
+        participant_obj = ParticipantModel.find_by_id(id)
+
+        if participant_obj:
+            try:
+                participant_obj.delete_from_db()
+            except:
+                return {"message": "An error occurred deleting the participant"}
+            return {"message": "Participant deleted."}
+
+        return {"message": "Participant not found"}, 404
 
 
 class Participants(Resource):

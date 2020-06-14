@@ -33,7 +33,7 @@ def create_app():
         "/questions/<string:quiz_id>",
         "/questions/<string:quiz_id>/<int:round_number>",
     )
-    api.add_resource(Participant, "/participant/<string:quiz_id>")
+    api.add_resource(Participant, "/participant", "/participant/<string:id>")
     api.add_resource(Participants, "/participants/<string:quiz_id>")
     api.add_resource(
         Answers,
