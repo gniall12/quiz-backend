@@ -1,3 +1,6 @@
+import os
+import logging
+
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
@@ -17,6 +20,8 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object("quiz_app.config.AppConfig")
     app.register_blueprint(sse, url_prefix="/stream")
+
+    logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 
     CORS(app)
 
