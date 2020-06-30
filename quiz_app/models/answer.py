@@ -74,6 +74,6 @@ class AnswerModel(db.Model):
         db.session.commit()
 
     def delete_from_db(self):
-        """Deletes AnswerModel object from the database."""
+        """Deletes AnswerModel object from the database"""
         db.session.delete(self)
         db.session.commit()
