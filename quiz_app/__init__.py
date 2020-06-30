@@ -17,11 +17,6 @@ from .resources.server_sent import Change
 
 
 def create_app():
-    """Initialise the application.
-
-    Returns:
-        app: the application created
-    """
     app = Flask(__name__)
     app.config.from_object("quiz_app.config.AppConfig")
     app.register_blueprint(sse, url_prefix="/stream")
@@ -51,7 +46,6 @@ def create_app():
 
     @app.before_first_request
     def create_tables():
-        """Creates all database tables."""
         db.create_all()
 
     db.init_app(app)
