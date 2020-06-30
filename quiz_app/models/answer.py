@@ -69,11 +69,11 @@ class AnswerModel(db.Model):
         return query.all()
 
     def save_to_db(self):
-        """Saves AnswerModel object to the database"""
+        """Saves AnswerModel object to the database."""
         db.session.add(self)
         db.session.commit()
 
     def delete_from_db(self):
-        """Deletes AnswerModel object from the database"""
+        """Deletes AnswerModel object from the database."""
         db.session.delete(self)
         db.session.commit()
