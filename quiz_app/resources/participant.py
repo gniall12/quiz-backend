@@ -10,6 +10,13 @@ class Participant(Resource):
     parser.add_argument("name", type=str, required=True)
 
     def post(self):
+        """Adds a participant to a quiz.
+
+        Quiz id and participant name should be specified in the request body.
+
+        Returns:
+            The participant added in JSON form.
+        """
         data = Participant.parser.parse_args()
         participant_obj = ParticipantModel(data["quiz_id"], data["name"])
 
@@ -28,6 +35,14 @@ class Participant(Resource):
         return participant_obj.json()
 
     def delete(self, id):
+        """Deletes a participant from a quiz.
+
+        Args:
+            id: the ID of the participant to be deleted.
+
+        Returns:
+            A JSON message confirming that the participant is deleted.
+        """
         participant_obj = ParticipantModel.find_by_id(id)
 
         if participant_obj:
@@ -45,6 +60,14 @@ class Participants(Resource):
     parser.add_argument("participants", type=dict, action="append", required=True)
 
     def get(self, quiz_id):
+        """Gets a list of participants in a quiz.
+
+        Args:
+            quiz_id: the ID of the quiz.
+
+        Returns:
+            A list of participants in JSON form.
+        """
         participant_obj_list = ParticipantModel.find_all_by_quiz_id(quiz_id)
 
         if participant_obj_list:
@@ -57,6 +80,16 @@ class Participants(Resource):
         return {"message": "Quiz not found"}, 404
 
     def put(self, quiz_id):
+        """Updates a list of participants in a quiz.
+
+        Request body should contain participant objects with updated scores.
+
+        Args:
+            quiz_id: the ID of the quiz.
+
+        Returns:
+            A list of updated participants in JSON form.
+        """
         data = Participants.parser.parse_args()
         participants = data["participants"]
         updated_participant_obj_list = []
