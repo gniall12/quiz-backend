@@ -13,12 +13,24 @@ class Quiz(Resource):
     put_parser.add_argument("number_rounds", type=int, required=False)
 
     def get(self, id):
+        """Gets a quiz.
+
+        Args:
+            id: the ID of the quiz.
+
+        Returns:
+            A quiz in JSON form.
+        """
         quiz_obj = QuizModel.find_by_id(id)
         if quiz_obj:
             return quiz_obj.json()
         return {"message": "Quiz not found"}, 404
 
     def post(self):
+        """Adds a quiz to the database.
+
+        Quiz name should be specified in the request body.
+        """
         data = Quiz.post_parser.parse_args()
         quiz_obj = QuizModel(data["name"])
 
@@ -30,6 +42,17 @@ class Quiz(Resource):
         return quiz_obj.json()
 
     def put(self, id):
+        """Updates a quiz's current round and/or number of rounds.
+
+        New current round and/or number of rounds value should be specified 
+        in the request body.
+
+        Attributes:
+            id: The ID of the quiz to update.
+
+        Returns:
+            The updated quiz in JSON form.
+        """
         quiz_obj = QuizModel.find_by_id(id)
         data = Quiz.put_parser.parse_args()
         if quiz_obj:
@@ -44,6 +67,14 @@ class Quiz(Resource):
         return quiz_obj.json()
 
     def delete(self, id):
+        """Deletes a quiz.
+
+        Args:
+            id: the ID of the quiz to be deleted.
+
+        Returns:
+            A JSON message confirming that the quiz is deleted.
+        """
         quiz_obj = QuizModel.find_by_id(id)
 
         if quiz_obj:
