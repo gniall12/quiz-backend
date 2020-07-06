@@ -12,6 +12,7 @@ class QuizModel(db.Model):
         name: The name of the quiz.
         number_rounds: The number of rounds in the quiz.
         current_round: The round which the quiz is currently at.
+        current_page: The current stage of the quiz, controlled by the quizmaster.
     """
 
     __tablename__ = "quizzes"
@@ -21,6 +22,7 @@ class QuizModel(db.Model):
     name = db.Column(db.String(80))
     number_rounds = db.Column(db.Integer)
     current_round = db.Column(db.Integer)
+    current_page = db.Column(db.String(80))
 
     def __init__(self, name, number_rounds=None, current_round=None):
         """ Inits the QuizModel."""
@@ -36,6 +38,7 @@ class QuizModel(db.Model):
             "name": self.name,
             "number_rounds": self.number_rounds,
             "current_round": self.current_round,
+            "current_page": self.current_page,
         }
 
     @classmethod
