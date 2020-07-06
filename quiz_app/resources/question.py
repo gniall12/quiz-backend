@@ -8,6 +8,16 @@ class Questions(Resource):
     parser.add_argument("questions", type=dict, action="append", required=True)
 
     def post(self, quiz_id):
+        """Adds a list of questions to a quiz.
+
+        Questions should be specified in the request body.
+
+        Attributes:
+            quiz_id: The ID of the quiz to add the questions to.
+
+        Returns:
+            A list of the questions added in JSON form.
+        """
         root_data = Questions.parser.parse_args()
 
         question_obj_list = []
@@ -29,6 +39,18 @@ class Questions(Resource):
         }
 
     def get(self, quiz_id, round_number=None):
+        """Gets a list of questions in a quiz or round of a quiz.
+
+        If round_number is not specified, all questions for the quiz are returned
+
+        Args:
+            quiz_id: the ID of the quiz.
+            round_num: Optional parameter. Specifies the round number to 
+                return questions from.
+
+        Returns:
+            A list of questions in JSON form.
+        """
         if round_number is not None:
             question_obj_list = QuestionModel.find_round_questions(
                 quiz_id, round_number
