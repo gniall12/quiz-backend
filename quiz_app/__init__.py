@@ -13,7 +13,6 @@ from .resources.quiz import Quiz
 from .resources.question import Questions
 from .resources.participant import Participant, Participants
 from .resources.answer import Answers
-from .resources.server_sent import Change
 
 
 def create_app():
@@ -47,7 +46,6 @@ def create_app():
         "/answers/<string:quiz_id>/<int:round_num>",
         "/answers/<string:quiz_id>/<int:round_num>/<int:participant_id>",
     )
-    api.add_resource(Change, "/change/<string:quiz_id>")
 
     @app.before_first_request
     def create_tables():
