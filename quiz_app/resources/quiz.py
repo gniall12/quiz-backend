@@ -11,6 +11,7 @@ class Quiz(Resource):
     put_parser = reqparse.RequestParser()
     put_parser.add_argument("current_round", type=int, required=False)
     put_parser.add_argument("number_rounds", type=int, required=False)
+    put_parser.add_argument("current_page", type=str, required=False)
 
     def get(self, id):
         """Gets a quiz.
@@ -60,6 +61,8 @@ class Quiz(Resource):
                 quiz_obj.current_round = data["current_round"]
             if data["number_rounds"] is not None:
                 quiz_obj.number_rounds = data["number_rounds"]
+            if data["current_page"] is not None:
+                quiz_obj.number_rounds = data["current_page"]
             quiz_obj.save_to_db()
         else:
             return {"message": "Quiz not found"}, 404
