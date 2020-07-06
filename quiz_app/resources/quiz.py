@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from flask_sse import sse
 
 from ..models.quiz import QuizModel
 
@@ -66,6 +67,7 @@ class Quiz(Resource):
             quiz_obj.save_to_db()
         else:
             return {"message": "Quiz not found"}, 404
+        sse.publish(quiz_obj.json(), channel=id)
 
         return quiz_obj.json()
 
