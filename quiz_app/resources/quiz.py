@@ -63,7 +63,7 @@ class Quiz(Resource):
             if data["number_rounds"] is not None:
                 quiz_obj.number_rounds = data["number_rounds"]
             if data["current_page"] is not None:
-                quiz_obj.number_rounds = data["current_page"]
+                quiz_obj.current_page = data["current_page"]
             quiz_obj.save_to_db()
         else:
             return {"message": "Quiz not found"}, 404
