@@ -12,6 +12,8 @@ The idea for this stemmed from the lockdown-induced Zoom quizzes of March/April 
 
 Python/Flask backend which serves a [frontend](https://github.com/gniall12/quiz-frontend) written in Angular.
 
+This is a work in progress - I will be adding unit testing next.
+
 Makes use of [Flask-SSE](https://pypi.org/project/Flask-SSE/), a package which enables server-sent events from Flask applications. 
 This allows the quizmaster to notify participants when the quiz progresses to the next stage
     
